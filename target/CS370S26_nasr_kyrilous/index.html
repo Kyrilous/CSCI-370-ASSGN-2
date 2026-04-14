@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+    <div class="container">
+        <h1>File Upload Portal</h1>
+        <p>Upload a text file for servlet processing and database storage.</p>
+
+        <form onsubmit="return validateFileSize()" action="FileUploadServlet" method="post" enctype="multipart/form-data">
+            <input type="file" id="fileName" name="fileName" required>  <!-- Set required field to prevent empty submissions. -->
+            <input type="submit" value="Upload File">
+        </form>
+
+        <p id="fileError" style="display:none; color:red;">
+            File exceeds the 50 MB limit.
+        </p>
+    </div>
+
+    <div class="footer">
+        Kyrilous Nasr | CSCI 370 | Assignment 2
+    </div>
+</div>
+
+<script>
+    function validateFileSize() {
+        const fileInput = document.getElementById("fileName");
+        const error = document.getElementById("fileError");
+        error.style.display = "none";
+
+        if (fileInput.files.length > 0) {
+            const maxSize = 50 * 1024 * 1024;
+            if (fileInput.files[0].size > maxSize) {
+                error.style.display = "block";
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+
+</body>
+</html>
